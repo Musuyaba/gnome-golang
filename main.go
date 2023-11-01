@@ -1,13 +1,36 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+
+	"github.com/Musuyaba/gnome-golang/pkg/initializers"
+	"github.com/Musuyaba/gnome-golang/routers"
+	"github.com/gin-gonic/gin"
+)
+
+var (
+	server *gin.Engine
+)
+
+func init() {
+	config, err := initializers.LoadConfig(".")
+	if err != nil {
+		log.Fatal("? Could not load environment variables", err)
+	}
+
+	initializers.ConnectDb(&config)
+
+	server = gin.Default()
+}
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	config, err := initializers.LoadConfig(".")
+	if err != nil {
+		log.Fatal("? Could not load environment variables", err)
+	}
+
+	routers.ApiRoutes(server)
+	routers.PublicRoutes(server)
+
+	log.Fatal(server.RunTLS(config.HOSTNAME+":"+config.PORT, "./certs/generated/server.crt", "./certs/generated/server.key"))
 }
