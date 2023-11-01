@@ -30,6 +30,7 @@ func main() {
 	}
 
 	routers.ApiRoutes(server)
+	routers.PublicRoutes(server)
 
-	log.Fatal(server.Run(":" + config.PORT))
+	log.Fatal(server.RunTLS(config.HOSTNAME+":"+config.PORT, "./certs/generated/server.crt", "./certs/generated/server.key"))
 }

@@ -14,3 +14,14 @@ func ApiRoutes(superRouter *gin.Engine) {
 		}
 	}
 }
+
+func PublicRoutes(superRouter *gin.Engine) {
+	publicApiGroup := superRouter.Group("/")
+	{
+		publicApiGroup.GET("/", controllers.TestHandler)
+		// userGroup := publicApiGroup.Group("/user")
+		// {
+		// 	userGroup.GET("/hello", controllers.TestHandler)
+		// }
+	}
+}
