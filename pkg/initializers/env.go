@@ -5,15 +5,21 @@ import (
 )
 
 type Config struct {
-	DATABASE_NAME     string `mapstructure:"DATABASE_NAME"`
-	DATABASE_HOST     string `mapstructure:"DATABASE_HOST"`
-	DATABASE_USER     string `mapstructure:"DATABASE_USER"`
-	DATABASE_PASSWORD string `mapstructure:"DATABASE_PASSWORD"`
-	DATABASE_PORT     string `mapstructure:"DATABASE_PORT"`
-	APPNAME           string `mapstructure:"APPNAME"`
-	APIKEY            string `mapstructure:"APIKEY"`
-	HOSTNAME          string `mapstructure:"HOSTNAME"`
-	PORT              string `mapstructure:"PORT"`
+	APPNAME                      string `mapstructure:"APPNAME"`
+	APIKEY                       string `mapstructure:"APIKEY"`
+	HOSTNAME                     string `mapstructure:"HOSTNAME"`
+	PORT                         string `mapstructure:"PORT"`
+	DATABASE_USED                string `mapstructure:"DATABASE_USED"`
+	DATABASE_POSTGRESQL_NAME     string `mapstructure:"DATABASE_POSTGRESQL_NAME"`
+	DATABASE_POSTGRESQL_HOST     string `mapstructure:"DATABASE_POSTGRESQL_HOST"`
+	DATABASE_POSTGRESQL_USER     string `mapstructure:"DATABASE_POSTGRESQL_USER"`
+	DATABASE_POSTGRESQL_PASSWORD string `mapstructure:"DATABASE_POSTGRESQL_PASSWORD"`
+	DATABASE_POSTGRESQL_PORT     string `mapstructure:"DATABASE_POSTGRESQL_PORT"`
+	DATABASE_MYSQL_NAME          string `mapstructure:"DATABASE_MYSQL_NAME"`
+	DATABASE_MYSQL_HOST          string `mapstructure:"DATABASE_MYSQL_HOST"`
+	DATABASE_MYSQL_USER          string `mapstructure:"DATABASE_MYSQL_USER"`
+	DATABASE_MYSQL_PASSWORD      string `mapstructure:"DATABASE_MYSQL_PASSWORD"`
+	DATABASE_MYSQL_PORT          string `mapstructure:"DATABASE_MYSQL_PORT"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

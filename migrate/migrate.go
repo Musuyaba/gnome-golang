@@ -13,7 +13,7 @@ func init() {
 	if err != nil {
 		log.Fatal("? Could not load environment variables", err)
 	}
-	initializers.ConnectDb(&config)
+	initializers.ConnectDbPostgreSQL(&config)
 }
 
 func main() {

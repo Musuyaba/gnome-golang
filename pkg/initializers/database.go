@@ -13,8 +13,8 @@ var (
 	err        error
 )
 
-func ConnectDb(config *Config) {
-	dbURL := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", config.DATABASE_HOST, config.DATABASE_USER, config.DATABASE_PASSWORD, config.DATABASE_NAME, config.DATABASE_PORT)
+func ConnectDbPostgreSQL(config *Config) {
+	dbURL := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", config.DATABASE_POSTGRESQL_HOST, config.DATABASE_POSTGRESQL_USER, config.DATABASE_POSTGRESQL_PASSWORD, config.DATABASE_POSTGRESQL_NAME, config.DATABASE_POSTGRESQL_PORT)
 
 	DbInstance, err = gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
