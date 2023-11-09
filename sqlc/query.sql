@@ -1,15 +1,125 @@
--- name: GetPalleteNotDone :one
+-- name: GetPiecesNotDoneWithWrapKoliPallete :one
 SELECT
-	*
+	piece.ID AS piece_ID,
+	piece.Data_Print_ID AS piece_Data_Print_ID,
+	piece.Parent_ID AS piece_Parent_ID,
+	piece.Serial_Level AS piece_Serial_Level,
+	piece.Barcode AS piece_Barcode,
+	piece.Serialisasi AS piece_Serialisasi,
+	piece.Batch_No AS piece_Batch_No,
+	piece.Process_Order AS piece_Process_Order,	
+	piece.Scanned AS piece_Scanned,
+	piece.product AS piece_product,
+	piece.nie AS piece_nie,
+	piece.sku AS piece_sku,
+	piece.Counter AS piece_Counter,
+	piece.Berat AS piece_Berat,
+	piece.md AS piece_md,
+	piece.ed AS piece_ed,
+	piece.Username AS piece_Username,
+	piece.station_name AS piece_station_name,
+	piece.grup AS piece_grup,
+	piece.ipc AS piece_ipc,
+	piece.Sample AS piece_Sample,
+	piece.packer AS piece_packer,
+	piece.upload_line AS piece_upload_line,
+	piece.status AS piece_status,
+	piece.sjp AS piece_sjp,
+	piece.done AS piece_done,
+	piece.synced AS piece_synced,
+	wrap.ID AS wrap_ID,
+	wrap.Data_Print_ID AS wrap_Data_Print_ID,
+	wrap.Parent_ID AS wrap_Parent_ID,
+	wrap.Serial_Level AS wrap_Serial_Level,
+	wrap.Barcode AS wrap_Barcode,
+	wrap.Serialisasi AS wrap_Serialisasi,
+	wrap.Batch_No AS wrap_Batch_No,
+	wrap.Process_Order AS wrap_Process_Order,	
+	wrap.Scanned AS wrap_Scanned,
+	wrap.product AS wrap_product,
+	wrap.nie AS wrap_nie,
+	wrap.sku AS wrap_sku,
+	wrap.Counter AS wrap_Counter,
+	wrap.Berat AS wrap_Berat,
+	wrap.md AS wrap_md,
+	wrap.ed AS wrap_ed,
+	wrap.Username AS wrap_Username,
+	wrap.station_name AS wrap_station_name,
+	wrap.grup AS wrap_grup,
+	wrap.ipc AS wrap_ipc,
+	wrap.Sample AS wrap_Sample,
+	wrap.packer AS wrap_packer,
+	wrap.upload_line AS wrap_upload_line,
+	wrap.status AS wrap_status,
+	wrap.sjp AS wrap_sjp,
+	wrap.done AS wrap_done,
+	wrap.synced AS wrap_synced,
+	koli.ID AS koli_ID,
+	koli.Data_Print_ID AS koli_Data_Print_ID,
+	koli.Parent_ID AS koli_Parent_ID,
+	koli.Serial_Level AS koli_Serial_Level,
+	koli.Barcode AS koli_Barcode,
+	koli.Serialisasi AS koli_Serialisasi,
+	koli.Batch_No AS koli_Batch_No,
+	koli.Process_Order AS koli_Process_Order,	
+	koli.Scanned AS koli_Scanned,
+	koli.product AS koli_product,
+	koli.nie AS koli_nie,
+	koli.sku AS koli_sku,
+	koli.Counter AS koli_Counter,
+	koli.Berat AS koli_Berat,
+	koli.md AS koli_md,
+	koli.ed AS koli_ed,
+	koli.Username AS koli_Username,
+	koli.station_name AS koli_station_name,
+	koli.grup AS koli_grup,
+	koli.ipc AS koli_ipc,
+	koli.Sample AS koli_Sample,
+	koli.packer AS koli_packer,
+	koli.upload_line AS koli_upload_line,
+	koli.status AS koli_status,
+	koli.sjp AS koli_sjp,
+	koli.done AS koli_done,
+	koli.synced AS koli_synced,
+	pallete.ID AS pallete_ID,
+	pallete.Data_Print_ID AS pallete_Data_Print_ID,
+	pallete.Parent_ID AS pallete_Parent_ID,
+	pallete.Serial_Level AS pallete_Serial_Level,
+	pallete.Barcode AS pallete_Barcode,
+	pallete.Serialisasi AS pallete_Serialisasi,
+	pallete.Batch_No AS pallete_Batch_No,
+	pallete.Process_Order AS pallete_Process_Order,	
+	pallete.Scanned AS pallete_Scanned,
+	pallete.product AS pallete_product,
+	pallete.nie AS pallete_nie,
+	pallete.sku AS pallete_sku,
+	pallete.Counter AS pallete_Counter,
+	pallete.Berat AS pallete_Berat,
+	pallete.md AS pallete_md,
+	pallete.ed AS pallete_ed,
+	pallete.Username AS pallete_Username,
+	pallete.station_name AS pallete_station_name,
+	pallete.grup AS pallete_grup,
+	pallete.ipc AS pallete_ipc,
+	pallete.Sample AS pallete_Sample,
+	pallete.packer AS pallete_packer,
+	pallete.upload_line AS pallete_upload_line,
+	pallete.status AS pallete_status,
+	pallete.sjp AS pallete_sjp,
+	pallete.done AS pallete_done,
+	pallete.synced AS pallete_synced
 FROM
-	data_print
+	data_print piece
+LEFT JOIN data_print wrap on wrap.Data_Print_ID = piece.Parent_ID
+LEFT JOIN data_print koli on koli.Data_Print_ID = wrap.Parent_ID
+LEFT JOIN data_print pallete on pallete.Data_Print_ID = koli.Parent_ID
 WHERE
-	Serial_Level = 4
-	AND done is NULL
+	piece.Serial_Level = 1 
+	AND piece.done is NULL
 	LIMIT 1;
 
--- name: UpdatePalleteToDone :exec
-UPDATE data_print
-SET done = 0
+-- name: UpdatePieceToDone :exec
+UPDATE data_print 
+SET done = 1 
 WHERE
-	ID = ?;
+	Data_Print_ID = ?;
