@@ -25,7 +25,7 @@ CREATE TABLE `data_print` (
   `status` enum('produksi','karantina','reject','lulus') NOT NULL DEFAULT 'produksi',
   `sjp` varchar(100) DEFAULT NULL,
   `done` tinyint(4) DEFAULT '0',
-  `sync` tinyint(4) DEFAULT '0',
+  `synced` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`ID`) USING BTREE,
   UNIQUE KEY `KEY` (`Data_Print_ID`,`station_name`) USING BTREE,
   KEY `BARCODES` (`Barcode`) USING BTREE,

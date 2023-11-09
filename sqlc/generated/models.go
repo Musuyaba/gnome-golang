@@ -82,5 +82,5 @@ type DataPrint struct {
 	Status       DataPrintStatus
 	Sjp          sql.NullString
 	Done         sql.NullInt32
-	Sync         sql.NullInt32
+	Synced       sql.NullInt32
 }

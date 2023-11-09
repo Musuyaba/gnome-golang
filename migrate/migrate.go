@@ -13,10 +13,10 @@ func init() {
 	if err != nil {
 		log.Fatal("? Could not load environment variables", err)
 	}
-	initializers.ConnectDbPostgreSQL(&config)
+	initializers.ConnectDbGormPostgreSQL(&config)
 }
 
 func main() {
-	initializers.DbInstance.AutoMigrate(&models.User{})
+	initializers.PostgreGormInstance.AutoMigrate(&models.User{})
 	fmt.Println("? Migration complete")
 }

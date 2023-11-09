@@ -11,12 +11,12 @@ import (
 
 const getPalleteNotDone = `-- name: GetPalleteNotDone :one
 SELECT
-	id, data_print_id, parent_id, serial_level, barcode, serialisasi, batch_no, process_order, scanned, product, nie, sku, counter, berat, md, ed, username, station_name, grup, ipc, sample, packer, upload_line, status, sjp, done, sync
+	id, data_print_id, parent_id, serial_level, barcode, serialisasi, batch_no, process_order, scanned, product, nie, sku, counter, berat, md, ed, username, station_name, grup, ipc, sample, packer, upload_line, status, sjp, done, synced
 FROM
 	data_print
 WHERE
 	Serial_Level = 4
-	AND done = 0
+	AND done is NULL
 	LIMIT 1
 `
 
@@ -50,14 +50,14 @@ func (q *Queries) GetPalleteNotDone(ctx context.Context) (DataPrint, error) {
 		&i.Status,
 		&i.Sjp,
 		&i.Done,
-		&i.Sync,
+		&i.Synced,
 	)
 	return i, err
 }
 
 const updatePalleteToDone = `-- name: UpdatePalleteToDone :exec
 UPDATE data_print
-SET done = 1
+SET done = 0
 WHERE
 	ID = ?
 `
