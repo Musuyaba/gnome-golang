@@ -16,6 +16,7 @@ const (
 )
 
 type Piece struct {
+	PieceId       *int32        `bson:"PieceId"`
 	Data_Print_Id *int32        `bson:"Data_Print_Id"`
 	Parent_ID     *int32        `bson:"Parent_ID"`
 	Serial_Level  *int32        `bson:"Serial_Level"`
@@ -46,6 +47,7 @@ type Piece struct {
 }
 
 type Inner struct {
+	InnerId       *int32        `bson:"InnerId"`
 	Data_Print_Id *int32        `bson:"Data_Print_Id"`
 	Parent_ID     *int32        `bson:"Parent_ID"`
 	Serial_Level  *int32        `bson:"Serial_Level"`
@@ -75,6 +77,7 @@ type Inner struct {
 	Koli          Box           `bson:"Koli"`
 }
 type Box struct {
+	BoxId         *int32        `bson:"BoxId"`
 	Data_Print_Id *int32        `bson:"Data_Print_Id"`
 	Parent_ID     *int32        `bson:"Parent_ID"`
 	Serial_Level  *int32        `bson:"Serial_Level"`
@@ -105,6 +108,7 @@ type Box struct {
 }
 
 type Pallete struct {
+	PalleteId     *int32        `bson:"PalleteId"`
 	Data_Print_Id *int32        `bson:"Data_Print_Id"`
 	Parent_ID     *int32        `bson:"Parent_ID"`
 	Serial_Level  *int32        `bson:"Serial_Level"`

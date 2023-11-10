@@ -363,10 +363,10 @@ const updatePieceToDone = `-- name: UpdatePieceToDone :exec
 UPDATE data_print 
 SET done = 1 
 WHERE
-	Data_Print_ID = ?
+	ID = ?
 `
 
-func (q *Queries) UpdatePieceToDone(ctx context.Context, dataPrintID sql.NullInt32) error {
-	_, err := q.db.ExecContext(ctx, updatePieceToDone, dataPrintID)
+func (q *Queries) UpdatePieceToDone(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, updatePieceToDone, id)
 	return err
 }

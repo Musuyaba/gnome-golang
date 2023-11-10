@@ -40,7 +40,7 @@ func main() {
 		log.Fatal("? Could not load environment variables", err)
 	}
 
-	for i := 0; i < 100000; i++ {
+	for i := 0; i < 1; i++ {
 
 		sqlc_query := generated.New(initializers.MySqlcInstance)
 		startTime := time.Now()
@@ -48,9 +48,9 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("Data Print ID :" + strconv.Itoa(int(rowPallete.PieceDataPrintID.Int32)))
+		fmt.Printf("Data Print ID: " + strconv.Itoa(int(rowPallete.PieceID)) + "\n")
 
-		err = sqlc_query.UpdatePieceToDone(ctx, rowPallete.PieceDataPrintID)
+		err = sqlc_query.UpdatePieceToDone(ctx, rowPallete.PieceID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -59,6 +59,7 @@ func main() {
 		collection := db_mongo.Collection("qr-flatten")
 
 		palleteObject := schema.Pallete{
+			PalleteId:     sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(rowPallete.PalleteID)),
 			Data_Print_Id: sqlcHandler.GetNullableInt32(rowPallete.PalleteDataPrintID),
 			Parent_ID:     sqlcHandler.GetNullableInt32(rowPallete.PalleteParentID),
 			Serial_Level:  sqlcHandler.GetNullableInt32(rowPallete.PalleteSerialLevel),
@@ -88,6 +89,7 @@ func main() {
 		}
 
 		koliObject := schema.Box{
+			BoxId:         sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(rowPallete.KoliID)),
 			Data_Print_Id: sqlcHandler.GetNullableInt32(rowPallete.KoliDataPrintID),
 			Parent_ID:     sqlcHandler.GetNullableInt32(rowPallete.KoliParentID),
 			Serial_Level:  sqlcHandler.GetNullableInt32(rowPallete.KoliSerialLevel),
@@ -118,6 +120,7 @@ func main() {
 		}
 
 		wrapObject := schema.Inner{
+			InnerId:       sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(rowPallete.WrapID)),
 			Data_Print_Id: sqlcHandler.GetNullableInt32(rowPallete.WrapDataPrintID),
 			Parent_ID:     sqlcHandler.GetNullableInt32(rowPallete.WrapParentID),
 			Serial_Level:  sqlcHandler.GetNullableInt32(rowPallete.WrapSerialLevel),
@@ -148,6 +151,7 @@ func main() {
 		}
 
 		pieceObject := schema.Piece{
+			PieceId:       sqlcHandler.ConvertInt64Int32(&rowPallete.PieceID),
 			Data_Print_Id: sqlcHandler.GetNullableInt32(rowPallete.PieceDataPrintID),
 			Parent_ID:     sqlcHandler.GetNullableInt32(rowPallete.PieceParentID),
 			Serial_Level:  sqlcHandler.GetNullableInt32(rowPallete.PieceSerialLevel),
