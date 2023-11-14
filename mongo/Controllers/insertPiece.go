@@ -1,4 +1,4 @@
-package mongoController
+package mongocontroller
 
 import (
 	"context"

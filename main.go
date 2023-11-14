@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	mongoController "github.com/Musuyaba/gnome-golang/mongo/Controllers"
+	mongocontroller "github.com/Musuyaba/gnome-golang/mongo/Controllers"
 	"github.com/Musuyaba/gnome-golang/pkg/initializers"
 	"github.com/Musuyaba/gnome-golang/sqlc/sqlcControllers"
 	_ "github.com/go-sql-driver/mysql"
@@ -39,11 +39,10 @@ func main() {
 	}
 
 	dbMongoInstance := initializers.MongoInstance.Database(config.DATABASE_MONGODB_DATA_NODE_A_NAME)
-	collection := dbMongoInstance.Collection("qr-flatten")
 
 	for i := 0; i < 1; i++ {
 		startTime := time.Now()
-		runMigrate(collection)
+		runMigrate(dbMongoInstance, "qr-flatten-pieces")
 		executionTime := time.Since(startTime)
 		fmt.Println("Execution time:", executionTime)
 	}
@@ -56,18 +55,19 @@ func main() {
 	// // log.Fatal(server.RunTLS(config.HOSTNAME+":"+config.PORT, "./certs/generated/server.crt", "./certs/generated/server.key"))
 }
 
-func runMigrate(collection *mongo.Collection) {
+func runMigrate(dbMongoInstance *mongo.Database, collection_name string) {
 	rowDataPrint, err := sqlcControllers.FirstAndupdateDataPrint(ctx, initializers.MySqlcInstance)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	palleteObject := mongoController.CreatePalleteObject(rowDataPrint)
-	koliObject := mongoController.CreateKoliObject(rowDataPrint, palleteObject)
-	wrapObject := mongoController.CreateWrapObject(rowDataPrint, koliObject)
-	pieceObject := mongoController.CreatePieceObject(rowDataPrint, wrapObject)
+	palleteObject := mongocontroller.CreatePalleteObject(rowDataPrint)
+	koliObject := mongocontroller.CreateKoliObject(rowDataPrint, palleteObject)
+	wrapObject := mongocontroller.CreateWrapObject(rowDataPrint, koliObject)
+	pieceObject := mongocontroller.CreatePieceObject(rowDataPrint, wrapObject)
 
-	if _, err := mongoController.InsertPiece(collection, ctx, pieceObject); err != nil {
+	collection := dbMongoInstance.Collection(collection_name)
+	if _, err := mongocontroller.InsertPiece(collection, ctx, pieceObject); err != nil {
 		log.Fatal(err)
 	}
 }
