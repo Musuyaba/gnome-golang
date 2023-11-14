@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd generated
+
+[[ -f /certs/generated/RootCA.key && -f /certs/generated/RootCA.pem ]] && echo "Files /certs/generated/RootCA.key && /certs/generated/RootCA.pem exist." || openssl req -x509 -nodes -new -sha256 -days 1024 -newkey rsa:2048 -keyout RootCA.key -out RootCA.pem -subj "/C=ID/CN=localhost.local"
+[[ -f /certs/generated/RootCA.crt ]] && echo "Files /certs/generated/RootCA.crt exist." || openssl x509 -outform pem -in RootCA.pem -out RootCA.crt
+[[ -f /certs/generated/server.key && -f /certs/generated/server.csr ]] && echo "Files /certs/generated/RootCA.crt exist." || openssl req -new -nodes -newkey rsa:2048 -keyout server.key -out server.csr -subj "/C=ID/ST=EastJava/L=Malang/O=Musuyaba/OU=MusuyabaPersonalPortofolio/CN=localhost.local/emailAddress=YOUR_EMAIL@gmail.com"
+[[ -f /certs/generated/server.crt && -f /certs/generated/RootCA.srl ]] && echo "Files /certs/generated/server.crt && /certs/generated/RootCA.srl exist." || openssl x509 -req -sha256 -days 1024 -in server.csr -CA RootCA.pem -CAkey RootCA.key -CAcreateserial -extfile /certs/domains.ext -out server.crt
