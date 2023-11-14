@@ -10,7 +10,9 @@ func ApiRoutes(superRouter *gin.Engine) {
 	{
 		userGroup := apiGroup.Group("/user")
 		{
-			userGroup.GET("/hello", controllers.TestHandler)
+			userGroup.POST("/", controllers.TestHandler)
+			userGroup.DELETE("/", controllers.TestHandler)
+			userGroup.GET("/", controllers.TestHandler)
 		}
 	}
 }
