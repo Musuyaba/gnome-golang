@@ -1,14 +1,14 @@
 package mongocontroller
 
 import (
-	schema "github.com/Musuyaba/gnome-golang/mongo"
+	mongoschema "github.com/Musuyaba/gnome-golang/mongo"
 	"github.com/Musuyaba/gnome-golang/sqlc/generated"
 	"github.com/Musuyaba/gnome-golang/sqlc/sqlcHandler"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreatePieceObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, wrapObject schema.Inner) schema.Piece {
-	pieceObject := schema.Piece{
+func CreatePieceObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, wrapObject mongoschema.Inner) mongoschema.Piece {
+	pieceObject := mongoschema.Piece{
 		PieceId:       sqlcHandler.ConvertInt64Int32(&row.PieceID),
 		Data_Print_Id: sqlcHandler.GetNullableInt32(row.PieceDataPrintID),
 		Parent_ID:     sqlcHandler.GetNullableInt32(row.PieceParentID),
@@ -32,7 +32,7 @@ func CreatePieceObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, wra
 		Sample:        sqlcHandler.GetNullableTime(row.PieceSample),
 		Packer:        sqlcHandler.GetNullableString(row.PiecePacker),
 		Upload_line:   row.PieceUploadLine,
-		Status:        schema.Status(row.PieceStatus),
+		Status:        mongoschema.Status(row.PieceStatus),
 		Sjp:           sqlcHandler.GetNullableString(row.PieceSjp),
 		Done:          bson.RawValue{Type: bson.TypeNull},
 		Synced:        bson.RawValue{Type: bson.TypeNull},

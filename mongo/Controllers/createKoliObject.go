@@ -1,14 +1,14 @@
 package mongocontroller
 
 import (
-	schema "github.com/Musuyaba/gnome-golang/mongo"
+	mongoschema "github.com/Musuyaba/gnome-golang/mongo"
 	"github.com/Musuyaba/gnome-golang/sqlc/generated"
 	"github.com/Musuyaba/gnome-golang/sqlc/sqlcHandler"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreateKoliObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, palleteObject schema.Pallete) schema.Box {
-	koliObject := schema.Box{
+func CreateKoliObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, palleteObject mongoschema.Pallete) mongoschema.Box {
+	koliObject := mongoschema.Box{
 		BoxId:         sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(row.KoliID)),
 		Data_Print_Id: sqlcHandler.GetNullableInt32(row.KoliDataPrintID),
 		Parent_ID:     sqlcHandler.GetNullableInt32(row.KoliParentID),

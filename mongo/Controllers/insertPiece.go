@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 
-	schema "github.com/Musuyaba/gnome-golang/mongo"
+	mongoschema "github.com/Musuyaba/gnome-golang/mongo"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func InsertPiece(collection *mongo.Collection, ctx context.Context, pieceObject schema.Piece) (*mongo.InsertOneResult, error) {
+func InsertPiece(collection *mongo.Collection, ctx context.Context, pieceObject mongoschema.Piece) (*mongo.InsertOneResult, error) {
 	result, err := collection.InsertOne(ctx, &pieceObject)
 	if err != nil {
 		log.Fatal(err)

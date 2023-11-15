@@ -1,14 +1,14 @@
 package mongocontroller
 
 import (
-	schema "github.com/Musuyaba/gnome-golang/mongo"
+	mongoschema "github.com/Musuyaba/gnome-golang/mongo"
 	"github.com/Musuyaba/gnome-golang/sqlc/generated"
 	"github.com/Musuyaba/gnome-golang/sqlc/sqlcHandler"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreatePalleteObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow) schema.Pallete {
-	palleteObject := schema.Pallete{
+func CreatePalleteObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow) mongoschema.Pallete {
+	palleteObject := mongoschema.Pallete{
 		PalleteId:     sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(row.PalleteID)),
 		Data_Print_Id: sqlcHandler.GetNullableInt32(row.PalleteDataPrintID),
 		Parent_ID:     sqlcHandler.GetNullableInt32(row.PalleteParentID),

@@ -1,14 +1,14 @@
 package mongocontroller
 
 import (
-	schema "github.com/Musuyaba/gnome-golang/mongo"
+	mongoschema "github.com/Musuyaba/gnome-golang/mongo"
 	"github.com/Musuyaba/gnome-golang/sqlc/generated"
 	"github.com/Musuyaba/gnome-golang/sqlc/sqlcHandler"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreateWrapObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, koliObject schema.Box) schema.Inner {
-	wrapObject := schema.Inner{
+func CreateWrapObject(row generated.GetPiecesNotDoneWithWrapKoliPalleteRow, koliObject mongoschema.Box) mongoschema.Inner {
+	wrapObject := mongoschema.Inner{
 		InnerId:       sqlcHandler.ConvertInt64Int32(sqlcHandler.GetNullableInt64(row.WrapID)),
 		Data_Print_Id: sqlcHandler.GetNullableInt32(row.WrapDataPrintID),
 		Parent_ID:     sqlcHandler.GetNullableInt32(row.WrapParentID),
